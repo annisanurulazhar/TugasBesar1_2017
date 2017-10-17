@@ -4,17 +4,18 @@
 
 		$username = $_POST['username'];
 		$password = $_POST['password'];
-		$id = $_POST['user_id'];
-		
-		$query = mysql_query("SELECT * FROM penumpang WHERE penumpang.username='" . $username . "'");
-		$result = $conn->query($query);
-		$row = $result->fetch_assoc();
-		
 
-		if(mysql_num_rows($query) == 1){
-			echo $id;
+		$sql = "SELECT * FROM penumpang WHERE username='".$username."' AND password= '".$password."'";
+
+		$result = mysqli_query($conn,$sql);
+
+		$row = mysqli_fetch_array($result);
+		$id = $row['user_id'];
+
+		if(mysqli_num_rows($result) == 1) {
+			header('location: ../pages/profile.php?id_active=' . $id);
 		} else {
-			echo 0;
+			echo "Login failed";
 		}
 	}
 	$conn->close();

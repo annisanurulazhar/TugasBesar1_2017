@@ -1,23 +1,16 @@
 <?php
-	 		include '../handlers/config.php';
-	 		$id = 1;//$_GET["id_active"];
-	 		$sql = "SELECT nama_lengkap, picking_location, destination, photo, time, rating_num, comments FROM order_ojek JOIN rating JOIN penumpang WHERE $id=order_ojek.user_id AND order_ojek.driver_id=penumpang.user_id";
+	include '../handlers/config.php';
+	$id = $_GET["id_active"];
+	$sql = "SELECT * FROM order_ojek 
+			NATURAL JOIN rating NATURAL JOIN penumpang 
+			WHERE $id=order_ojek.user_id";
 
-			$result = $conn->query($sql);
-			$row = $result->fetch_assoc();
-
-			$fullname = $row["nama_lengkap"];
-			$url_photo = "../" . $row["photo"];
-
-			$date = $row["time"];
-			$picklocation = $row["picking_location"];
-			$destination = $row["destination"];
-
-			$comment = $row["comments"];
-			$rating = $row["rating_num"];
-
-			$conn->close();
-		?> 
+	$result = $conn->query($sql);
+	while ($row = $result->fetch_assoc()) {
+		$fullname = $row["nama_lengkap"];
+		$username = $row["username"];
+	}
+?> 
 		
 <!DOCTYPE html>
 <html>
@@ -25,6 +18,7 @@
 		<title>
 			History
 		</title>
+		<link rel="stylesheet" type="text/css" href="../assets/styles/profile.css">
 		<link rel="stylesheet" type="text/css" href="../assets/styles/history.css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<script type="text/javascript" src="../assets/js/history.js"></script>
@@ -43,7 +37,7 @@
 					</div>
 					<div class="projekcontainer">
 						<div class="username">Hi, <?php echo $username; ?></div>
-						<div class="logout">Logout</div>
+						<div class="logout"><a href="../handlers/logout-handler.php">Logout</a></div>
 					</div>
 				</div>
 				<div class="tab">
@@ -55,25 +49,33 @@
 					<div class="menu-title">TRANSACTION HISTORY</div>
 				</div>
 				<div class="tab">
-					<div class="tabitem4"><a href="#history-order">MY PREVIOUS ORDER</a></div>
-					<div class="tabitem5"><a href="#history-driver">DRIVER HISTORY</a></div>
+					<div class="tabitem4"><a href="history-order.php?id_active=<?php echo $id ?>">MY PREVIOUS ORDER</a></div>
+					<div class="tabitem5"><a href="history-driver.php?id_active=<?php echo $id ?>">DRIVER HISTORY</a></div>
 				</div>
 				<div class="container" id="box1">
 					<img class="image" src="<?php echo $url_photo ?>">
 					<div class="konten">
-						<div class="date">Tanggal<?php echo $date?></div>
-						<div class="name">Nama<?php echo $fullname?></div>
-						<div class="path">Asal<?php echo $picklocation?> - <?php  echo $destination?>Tujuan </div>
-						<button class="button" onclick="hideContainer('box1')">HIDE</button>
-						<div class="rating">You rated:
-							<?php 
-								for($x = 0; $x < 5; $x++) {
-									echo '<i class="material-icons">star_border</i>';
-								} 
-							?>
-						</div>
-						<div class="comment">You commented: <?php echo $comment?></div>
-
+						<?php
+							$result = $conn->query($sql);
+							$index = 0;
+							if (mysqli_num_rows($result) > 0) {
+								while ($row = $result->fetch_assoc()) {
+									$sql = "SELECT * FROM order_ojek JOIN rating JOIN penumpang WHERE $id=order_ojek.user_id AND order_ojek.driver_id=penumpang.user_id";
+									echo '<div class="date">'.$row['time'].' </div>';
+									echo '<div class="name">'.$row['nama_lengkap'].'</div>';
+									echo '<div class="path">'.$row['picking_location'].' - '.$row['destination'].'</div>';
+									echo '<button class="button" onclick="hideContainer('. $index . ')">HIDE</button>';
+									echo '<div class="rating">You rated:';
+										for($x = 0; $x < $row['rating_num']; $x++) {
+											echo '<i class="material-icons">star_border</i>';
+										} 
+										echo '</div>';
+									echo '<div class="comment">You commented: '.$row['comments'].'</div>';
+									$index++;
+								}
+							}
+							$conn->close();
+						?>
 					</div>
 				</div>
 			</div>

@@ -1,13 +1,15 @@
 <?php
 	include '../handlers/config.php';
-	if (isset($_POST['signup'])) {
+	if ($_POST['confirm_pass']) {
 		$pass = $_POST['password'];
 		$confirm_pass = $_POST['confirmpass'];
 		$id = $_POST['user_id'];
 
-		$query = mysql_query("SELECT * FROM penumpang WHERE penumpang.email='" . $confirm_pass . "'");
+		$query = mysql_query("SELECT * FROM penumpang WHERE penumpang.confirmpass='" . $confirm_pass . "'");
 		$result = $conn->query($query);
-		$row = $result->fetch_assoc();		
+		while ($row = $result->fetch_assoc()) {
+			$id = $row['user_id'];
+		}
 
 		if($confirm_pass != $pass) {
 			echo 'failed';
