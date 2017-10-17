@@ -15,7 +15,7 @@
 		if(mysqli_num_rows($result) == 1) {
 			header('location: ../pages/profile.php?id_active=' . $id);
 		} else {
-			echo "Login failed";
+			header("location: ../pages/login.php");
 		}
 	}
 	$conn->close();

@@ -17,13 +17,17 @@
 
 			$id = $_GET['id_active'];
 
+			if (isset($_POST['picking-point']) && isset($_POST['destination'])) {
 			$pick = $_POST['picking-point'];
 
 			$dest = $_POST['destination'];
 
+			$sql_driver = "SELECT user_id FROM preferred_location WHERE preferred_loc = $pick OR preferred_loc = $dest "; 
+			$result_driver = $conn->query($sql_driver);
+		}
+
 			$sql_user = "SELECT username, nama_lengkap, email, no_hp, is_driver, photo FROM penumpang WHERE user_id= $id ";
 
-			$sql_driver = "SELECT user_id FROM preferred_location WHERE preferred_loc = $pick OR preferred_loc = $dest ";
 
 			$sql_rating = "SELECT user_id, AVG(rating_num) AS rating_avg FROM rating GROUP BY user_id";	
 
@@ -31,7 +35,6 @@
 
 			$result_user = $conn->query($sql_user);
 
-			$result_driver = $conn->query($sql_driver);
 
 			$result_rating = $conn->query($sql_rating);	
 
@@ -44,7 +47,7 @@
 			$email = $row_user["email"];
 			$no_hp = $row_user["no_hp"];
 			$is_driver = $row_user["is_driver"];
-			$url_photo = "../" . $row_user["photo"].$username.".png";
+			$url_photo = "../" . $row_user["photo"];
 		?> 
 		<div class="flex-container">
 			<div id="container" class="flex-container container"> 
@@ -59,13 +62,16 @@
 					</div>
 					<div class="projekcontainer">
 						<div class="username">Hi, <?php echo $username; ?></div>
-						<div class="logout">Logout</div>
+						<div class="logout">
+							<a href="../handlers/logout-handler.php">Logout</a></div>
 					</div>
 				</div>
 				<div class="tab">
-					<div class="tabitem1"><a href="#order">ORDER</a></div>
-					<div class="tabitem2"><a href="history-order.php">HISTORY</a></div>
-					<div class="tabitem3"><a href="profile.php">MY PROFILE</a></div>
+					<div class="tabitem1"><a href="order-ojek.php?id_active=<?php echo $id ?>">ORDER</a></div>
+
+					<div class="tabitem2"><a href="history-order.php?id_active=<?php echo $id ?>">HISTORY</a></div>
+					
+					<div class="tabitem3"><a href="profile.php?id_active=<?php echo $id ?>">MY PROFILE</a></div>
 				</div>
 				<div class="menu-container">
 					<div class="menu-title">MAKE AN ORDER</div>
@@ -74,17 +80,17 @@
 					<div class="tab-order">
 						<div class="select-dest">
 							<div class="number">1</div>	
-							<a href="#order">Select Destination</a>
+							<a href="order-ojek.php?id_active=<?php echo $id ?>">Select Destination</a>
 						</div>
 						<div class="padding-tab"></div>
 						<div class="select-driver">
 							<div class="number">2</div>
-							<a href="#select-driver">Select a Driver</a>
+							<a href="select-driver.php?id_active=<?php echo $id ?>">Select a Driver</a>
 						</div>
 						<div class="padding-tab"></div>
 						<div class="complete">
 							<div class="number">3</div>
-							<a href="complete">Complete your order</a>
+							<a href="complete-order.php?id_active=<?php echo $id ?>">Complete your order</a>
 						</div>
 					</div>
 					<div class="pref-drivers">

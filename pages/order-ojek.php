@@ -44,7 +44,7 @@
 					<div class="projekcontainer">
 						<div class="username">Hi, <?php echo $username; ?></div>
 						<div class="logout">
-							<a href="../handlers/logout-handler.php>">Logout</a></div>
+							<a href="../handlers/logout-handler.php">Logout</a></div>
 					</div>
 				</div>
 				<div class="tab">

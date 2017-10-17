@@ -8,6 +8,8 @@
 	</head>
 	<body>
 		 <?php
+
+		 	$id = $_GET['id_active'];
 			$servername = "localhost";
 			$username = "root";
 			$password = "";
@@ -16,7 +18,7 @@
 			// Create connection
 			$conn = new mysqli($servername, $username, $password, $database);
 
-			$sql = "SELECT username, nama_lengkap, email, no_hp, is_driver, photo FROM penumpang WHERE user_id=1";
+			$sql = "SELECT username, nama_lengkap, email, no_hp, is_driver, photo FROM penumpang WHERE user_id= $id";
 
 			$result = $conn->query($sql);
 
@@ -27,7 +29,7 @@
 			$email = $row["email"];
 			$no_hp = $row["no_hp"];
 			$is_driver = $row["is_driver"];
-			$url_photo = ".." . $row["photo"] . $username . ".png";
+			$url_photo = "../" . $row["photo"];
 
 
 		// Check connection
@@ -49,13 +51,16 @@
 					</div>
 					<div class="projekcontainer">
 						<div class="username">Hi, <?php echo $username; ?></div>
-						<div class="logout">Logout</div>
+						<div class="logout">
+							<a href="../handlers/logout-handler.php">Logout</a></div>
 					</div>
 				</div>
 				<div class="tab">
-					<div class="tabitem1"><a href="#order">ORDER</a></div>
-					<div class="tabitem2"><a href="history-order.php">HISTORY</a></div>
-					<div class="tabitem3"><a href="#history">MY PROFILE</a></div>
+					<div class="tabitem1"><a href="order-ojek.php?id_active=<?php echo $id ?>">ORDER</a></div>
+
+					<div class="tabitem2"><a href="history-order.php?id_active=<?php echo $id ?>">HISTORY</a></div>
+					
+					<div class="tabitem3"><a href="profile.php?id_active=<?php echo $id ?>">MY PROFILE</a></div>
 				</div>
 				<div class="menu-container">
 					<div class="menu-title">MAKE AN ORDER</div>
@@ -64,17 +69,17 @@
 					<div class="tab-order">
 						<div class="select-dest">
 							<div class="number">1</div>	
-							<a href="#order">Select Destination</a>
+							<a href="order-ojek.php?id_active=<?php echo $id ?>">Select Destination</a>
 						</div>
 						<div class="padding-tab"></div>
 						<div class="select-driver">
 							<div class="number">2</div>
-							<a href="#select-driver">Select a Driver</a>
+							<a href="select-driver.php?id_active=<?php echo $id ?>">Select a Driver</a>
 						</div>
 						<div class="padding-tab"></div>
 						<div class="complete">
 							<div class="number">3</div>
-							<a href="complete">Complete your order</a>
+							<a href="complete-order.php?id_active=<?php echo $id ?>">Complete your order</a>
 						</div>
 					</div>
 					<div class="head-content">HOW WAS IT?</div>
