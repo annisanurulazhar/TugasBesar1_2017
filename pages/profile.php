@@ -75,7 +75,14 @@
 							 ?>
 								
 							</div>
-						<div class="content-rating"><i class="material-icons">star_border</i><?php echo $avg_rating ?></div>
+						<div class="content-rating">
+							<?php 
+								if($is_driver==true) {
+									echo '<i class="material-icons">star_border</i>';
+									echo $avg_rating;
+								}
+						?>
+					</div>
 					</div>
 					<div class="content-email"><?php echo $email ?></div>
 					<div class="content-hp"><?php echo $no_hp ?></div>
