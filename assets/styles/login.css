@@ -54,6 +54,7 @@ hr {
 
 .check {
 	display: inline-block;
+	visibility: hidden;
 	float: right;
 }
 

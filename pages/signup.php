@@ -40,13 +40,13 @@
 			</div>
 			<div class="formBox">
 				<label class="formAttribute2">Username</label>	
-				<!-- <div class="check"><i class="material-icons">done</i></div> -->
-				<input type="text" name="username" class="formFillCheck" id="username" onclick="validate_username()">
+				<div class="check" id="username"><i class="material-icons">done</i></div>
+				<input type="text" name="username" class="formFillCheck" id="username_text" onfocusout="validate_username()">
 			</div>
 			<div class="formBox">
 				<label class="formAttribute2">Email</label>	
-				<!-- <div class="check"><i class="material-icons">done</i></div> -->
-				<input type="text" name="email" class="formFillCheck" id="email" onclick="validate_email()">
+				<div class="check" id="email"><i class="material-icons">done</i></div>
+				<input type="text" name="email" class="formFillCheck" id="email_text" onfocusout="validate_email()">
 			</div>
 			<div class="formBox">
 				<label class="formAttribute2">Password</label>	
@@ -54,7 +54,7 @@
 			</div>
 			<div class="formBox">
 				<label class="formAttribute2">Confirm Password</label>	
-				<input type="password" name="confirmpass" class="formFill" id="confirmpass" onclick="validate_confirmpass()">
+				<input type="password" name="confirmpass" class="formFill" id="confirmpass" onfocusout="validate_confirmpass()">
 			</div>
 			<div class="formBox">
 				<label class="formAttribute2">Phone Number</label>	
@@ -66,7 +66,7 @@
 			</div>
 		<div class="other">
 			<a href="login.php" id="link1">Already have an account?</a>
-			<input type="submit" form="signup" class="button" value="REGISTER" onclick="signup()"></button>
+			<input type="submit" name="submit" form="signup" class="button" value="REGISTER" id='signup' onclick="signup()"></button>
 		</div>
 		</form>
 	</div>

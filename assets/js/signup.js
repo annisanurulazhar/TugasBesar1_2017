@@ -26,17 +26,16 @@ function validate_username() {
 	}
 	xmlhttp.onreadystatechange = function(){
 		if (xmlhttp.status == 200 && xmlhttp.readyState == 4) {
-			if (xmlhttp.responseText == 'failed') {
-				document.getElementById('username').value = 'failed';
-				alert("failed");
+			if (xmlhttp.responseText == 'success') {
+				document.getElementById('username').style.visibility = 'visible';
 			} else {
-				//nampilin centang
-				alert("correct");
+				document.getElementById('username').style.visibility = 'hidden';
 			}
 		}	
 	}
-	xmlhttp.open("POST", "../handlers/signup-handler-username.php", false);
-	xmlhttp.send();	
+	xmlhttp.open("POST", "../handlers/signup-handler-username.php", true);
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlhttp.send("username=" + document.getElementById('username_text').value);	
 }
 
 function validate_email() {
@@ -48,15 +47,16 @@ function validate_email() {
 	}
 	xmlhttp.onreadystatechange = function(){
 		if (xmlhttp.status == 200 && xmlhttp.readyState == 4) {
-			if (xmlhttp.responseText == 'failed') {
-				document.getElementById('email').value = 'failed';
+			if (xmlhttp.responseText == 'success') {
+				document.getElementById('email').style.visibility = 'visible';
 			} else {
-				//nampilin centang
+				document.getElementById('email').style.visibility = 'hidden';
 			}
 		}
 	}
-	xmlhttp.open("POST", "../handlers/signup-handler-email.php", false);
-	xmlhttp.send();	
+	xmlhttp.open("POST", "../handlers/signup-handler-email.php", true);
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlhttp.send("email=" + document.getElementById('email_text').value);	
 }
 
 
@@ -69,14 +69,15 @@ function validate_confirmpass() {
 	}
 	xmlhttp.onreadystatechange = function(){
 		if (xmlhttp.status == 200 && xmlhttp.readyState == 4) {
-			if (xmlhttp.responseText == 'failed') {
-				document.getElementById('confirmpass').value = 'failed';
+			if (xmlhttp.responseText == 'success') {
+				document.getElementById('confirmpass') = 'failed';
 			} else {
 				//
 			}
 		}
 	}
-	xmlhttp.open("POST", "../handlers/signup-handler-confirmpass.php", false);
-	xmlhttp.send();	
+	xmlhttp.open("POST", "../handlers/signup-handler-confirmpass.php", true);
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlhttp.send("confirmpass=" + document.getElementById('confirmpass').value);	
 }
 

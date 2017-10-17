@@ -1,16 +1,13 @@
 <?php
 	include '../handlers/config.php';
-	if ($_GET['email'])) {
-		$email = $_GET['email'];
-		// $id = $_POST['user_id'];
+	if ($_POST['email'])) {
+		$email = $_POST['email'];
+		
+		$sql = "SELECT * FROM penumpang WHERE penumpang.username='$email'";
 
-		$query = mysql_query("SELECT * FROM penumpang WHERE penumpang.email='" . $email . "'");
-		$result = $conn->query($query);
-		while ($row = $result->fetch_assoc()) {
-			$id = $row['user_id'];
-		}
+		$result = mysqli_query($conn, $sql);
 
-		if(mysql_num_rows($query) >= 1 || !preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/", $email)) {
+		if(mysqli_num_rows($result) >= 1)) {
 			echo 'failed';
 		} else {
 			echo 'success';	
@@ -18,3 +15,5 @@
 	}
 	$conn->close();
 ?>
+
+ <!-- || !preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/", $email -->
