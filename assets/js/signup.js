@@ -9,68 +9,12 @@ function signup() {
 	if (yourname == "" || username == "" || email == "" || password == "" || confirmpass == "" || phonenumber == "") {
 		alert("Please fill all field");
 	} else {
-		var username_validated = document.getElementById("username_validated");
-		var email_validated = document.getElementById("email_validated");
-
-		if (username_validated.innerHTML == "Can't use blank" || email_validated.innerHTML == "Invalid email") {
-			alert("Fill valid information please");
-		} else {
+		// if (password == confirmpass) {
 			document.getElementById("signup").submit();
-		}
+		// } else {
+		// 	alert("Please fill valid value");
+		// }
 	}
-}
-
-function validate(field, query) {
-	var xmlhttp;
-	if (window.XMLHttpRequest) {
-		xmlhttp = new XMLHttpRequest();
-	} else {
-		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	xmlhttp.onreadystatechange = function(){
-		if (xmlhttp.status == 200) {
-			if (xmlhttp.readyState == 4) {
-				document.getElementById(field).innerHTML = xmlhttp.responseText;
-				
-				//php mengembalikan value true/false denngan json
-				var berhasil;
-
-				if (berhasil) {
-					document.getElementById('username_validated') = "success";
-					// kasih labelnya done
-				}
-				else {
-					document.getElementById('username_validated') = "failed";
-				}
-			} else {
-				document.getElementById(field).innerHTML = "Validating...";
-			}
-		} else {
-			document.getElementById(field).innerHTML = "Error Occured";
-		}
-	}
-	xmlhttp.open("POST", "/TugasBesar1_2017/handlers/signup-handlers.php", false);
-	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xmlhttp.send();
-}
-
-
-function validate_name() {
-	var xmlhttp;
-	if (window.XMLHttpRequest) {
-		xmlhttp = new XMLHttpRequest();
-	} else {
-		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	xmlhttp.onreadystatechange = function(){
-		if (xmlhttp.status == 400 && xmlhttp.readyState == 4) {
-			if (xmlhttp.responseText == 'success') {
-				
-			}
-		}
-	}
-	xmlhttp.open("POST", "/TugasBesar1_2017/handlers/signup-handler-name.php", false);
-	xmlhttp.send();	
 }
 
 function validate_username() {
@@ -81,9 +25,17 @@ function validate_username() {
 		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 	}
 	xmlhttp.onreadystatechange = function(){
-		
+		if (xmlhttp.status == 200 && xmlhttp.readyState == 4) {
+			if (xmlhttp.responseText == 'failed') {
+				document.getElementById('username').value = 'failed';
+				alert("failed");
+			} else {
+				//nampilin centang
+				alert("correct");
+			}
+		}	
 	}
-	xmlhttp.open("POST", "/TugasBesar1_2017/handlers/signup-handler-username.php", false);
+	xmlhttp.open("POST", "../handlers/signup-handler-username.php", false);
 	xmlhttp.send();	
 }
 
@@ -95,25 +47,18 @@ function validate_email() {
 		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 	}
 	xmlhttp.onreadystatechange = function(){
-		
+		if (xmlhttp.status == 200 && xmlhttp.readyState == 4) {
+			if (xmlhttp.responseText == 'failed') {
+				document.getElementById('email').value = 'failed';
+			} else {
+				//nampilin centang
+			}
+		}
 	}
-	xmlhttp.open("POST", "/TugasBesar1_2017/handlers/signup-handler-email.php", false);
+	xmlhttp.open("POST", "../handlers/signup-handler-email.php", false);
 	xmlhttp.send();	
 }
 
-function validate_pass() {
-	var xmlhttp;
-	if (window.XMLHttpRequest) {
-		xmlhttp = new XMLHttpRequest();
-	} else {
-		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	xmlhttp.onreadystatechange = function(){
-		
-	}
-	xmlhttp.open("POST", "/TugasBesar1_2017/handlers/signup-handler-password.php", false);
-	xmlhttp.send();	
-}
 
 function validate_confirmpass() {
 	var xmlhttp;
@@ -123,22 +68,15 @@ function validate_confirmpass() {
 		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 	}
 	xmlhttp.onreadystatechange = function(){
-		
+		if (xmlhttp.status == 200 && xmlhttp.readyState == 4) {
+			if (xmlhttp.responseText == 'failed') {
+				document.getElementById('confirmpass').value = 'failed';
+			} else {
+				//
+			}
+		}
 	}
-	xmlhttp.open("POST", "/TugasBesar1_2017/handlers/signup-handler-confirmpass.php", false);
+	xmlhttp.open("POST", "../handlers/signup-handler-confirmpass.php", false);
 	xmlhttp.send();	
 }
 
-function validate_phone() {
-	var xmlhttp;
-	if (window.XMLHttpRequest) {
-		xmlhttp = new XMLHttpRequest();
-	} else {
-		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	xmlhttp.onreadystatechange = function(){
-		
-	}
-	xmlhttp.open("POST", "/TugasBesar1_2017/handlers/signup-handler-phone.php", false);
-	xmlhttp.send();	
-}

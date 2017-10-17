@@ -1,23 +1,21 @@
 <?php
 	include '../handlers/config.php';
 	$id = $_GET["id_active"];
-	$sql = "SELECT nama_lengkap, picking_location, destination, photo, time, rating_num, comments FROM order_ojek JOIN rating JOIN penumpang WHERE $id=order_ojek.driver_id AND order_ojek.user_id=penumpang.user_id";
+	$sql = "SELECT * FROM order_ojek 
+			NATURAL JOIN rating NATURAL JOIN penumpang 
+			WHERE $id=order_ojek.user_id";
 
 	$result = $conn->query($sql);
-	$row = $result->fetch_assoc();
 
-	$fullname = $row["nama_lengkap"];
-	$url_photo = "../" . $row["photo"];
+	while ($row = $result->fetch_assoc()) {
+		$fullname = $row["nama_lengkap"];
+		$username = $row["username"];
+		$is_driver = $row["is_driver"];
+		$url_photo = "../" . $row["photo"];
+	}
 
-	$date = $row["time"];
-	$picklocation = $row["picking_location"];
-	$destination = $row["destination"];
-
-	$comment = $row["comments"];
-	$rating = $row["rating_num"];
-
-	$conn->close();
 ?> 
+		
 <!DOCTYPE html>
 <html>
 	<head>
@@ -43,7 +41,7 @@
 					</div>
 					<div class="projekcontainer">
 						<div class="username">Hi, <?php echo $username; ?></div>
-						<div class="logout">Logout</div>
+						<div class="logout"><a href="../handlers/logout-handler.php">Logout</a></div>
 					</div>
 				</div>
 				<div class="tab">
@@ -55,21 +53,35 @@
 					<div class="menu-title">TRANSACTION HISTORY</div>
 				</div>
 				<div class="tab">
-					<div class="tabitem5"><a href="#history-order">MY PREVIOUS ORDER</a></div>
-					<div class="tabitem4"><a href="#history-driver">DRIVER HISTORY</a></div>
+					<div class="tabitem5"><a href="history-order.php?id_active=<?php echo $id ?>">MY PREVIOUS ORDER</a></div>
+					<div class="tabitem4"><a href="history-driver.php?id_active=<?php echo $id ?>">DRIVER HISTORY</a></div>
 				</div>
-				<div class="container" id="box1">
-					<img class="image" src="<?php echo $url_photo ?>">
-					<div class="konten">
-						<div class="date">Tanggal<?php echo $date?></div>
-						<div class="name">Nama<?php echo $fullname?></div>
-						<div class="path">Asal<?php echo $picklocation?> - <?php  echo $destination?>Tujuan </div>
-						<button class="button" onclick="hideContainer('box1')">HIDE</button>
-						<div class="rating">gave <?php echo $rating?> stars for this order
-						</div>
-						<div class="comment">and left comment: <?php echo $comment?></div>
-					</div>
-				</div>
+				<?php
+					echo'<div class="container" id="box1">';
+						echo'<img class="image" src='.$url_photo.'>';
+						echo'<div class="konten">';
+								if ($is_driver == true) {
+									$result = $conn->query($sql);
+									$index = 0;
+									if (mysqli_num_rows($result) > 0) {
+										while ($row = $result->fetch_assoc()) {
+											$sql = "SELECT * FROM order_ojek JOIN rating JOIN penumpang WHERE $id=order_ojek.driver_id AND order_ojek.user_id=penumpang.user_id";
+											echo '<div class="date">'.$row['time'].' </div>';
+											echo '<div class="name">'.$row['nama_lengkap'].'</div>';
+											echo '<div class="path">'.$row['picking_location'].' - '.$row['destination'].'</div>';
+											echo '<button class="button" onclick="hideContainer('. $index . ')">HIDE</button>';
+											echo '<div class="rating">gave '. $row['rating_num'].' stars for this order</div>';
+											echo '<div class="comment">and left comment: '.$row['comments'].'</div>';
+											$index++;
+										}
+									}
+								} else {
+									echo "Bukan driver";
+								}
+								$conn->close();							
+						echo'</div>';
+					echo'</div>';
+				?>
 			</div>
 		</div>
 	</body>

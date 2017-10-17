@@ -1,0 +1,231 @@
+.container {
+	border: none;
+	display: inline-block;
+}
+.image {
+	width: 100px;
+	height: 100px;
+	float: left;
+	border: 1px solid black;
+	margin: 2em;
+	display: inline-block;
+}
+.driver {
+	display: inline-block;
+}
+.description {
+
+}
+.date, .name, .path, .rating, .comment {
+	font-family: "Book Antiqua";
+}
+.date {
+	color: grey;
+	font-size: 15px;
+}
+.name {
+	font-size: 18px;
+}
+.path, .rating {
+	font-size: 12px;
+}
+.comment {
+	font-size: 14px;
+}
+.content {
+	display: flex;
+	display: inline-block;
+}
+.button {
+	border-radius: 10px;
+    border: 2px solid #0D0A0A;
+    width: 80px;
+    height: 30px;
+    background: red;
+  	display: inline-block;
+    font-family: "verdana";
+    font-size: 17px;
+    text-align: center;
+    float: right;
+}
+.konten {
+	margin: 20px;
+}
+.flex-container {
+    display: -webkit-flex;
+    display: flex;
+    width: 1350px;
+    height: 640px;
+    margin: auto;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+    width: 550px;
+    height: 600px;
+}
+
+.header {
+	display: flex;
+   width: 550px;
+   height: 60px;
+   align-self: flex-start;
+   justify-content: space-between;
+}
+.projekcontainer {
+	display: flex;
+	width:250px;
+	height:60px;
+	flex-direction: column;
+	align-items: stretch;
+}
+
+.projek {
+	margin-top: 5px;
+	margin-left: 5px;
+}
+
+.slogan {
+	margin-left: 5px;
+}
+.username {
+	text-align: right;
+	margin-top: 5px;
+	margin-right:  5px;
+}
+
+.logout {
+	text-align: right;
+	margin-right: 5px;
+}
+
+.projek h2 {
+	margin: 0px;
+}
+
+.tabitem1 a {
+	display: block;
+	padding: 50px;
+	text-decoration: none;
+	font-size: 20px;
+	font-style: bold;
+	color: rgb(51,51,51);
+}
+.tabitem2 a {
+	display: block;
+	padding: 40px;
+	text-decoration: none;
+	font-size: 20px;
+	font-style: bold;
+	color: rgb(51,51,51);
+}
+.tabitem3 a {
+	display: block;
+	padding: 15px;
+	text-decoration: none;
+	font-size: 20px;
+	font-style: bold;
+	color: #FFFFFF;
+}
+
+.menu-container {
+	display: flex;
+	flex-direction: row;
+	align-self: center;
+	justify-content: space-between;
+	width: 490px;
+   height: 50px;
+}
+
+.menu-title {
+	display: flex;
+	font-size: 36px;
+	color: rgb(51,51,51);	
+
+	flex: 5;
+}
+
+.menu-title-edit {
+	display: flex;
+	margin-left: 10px;
+	margin-bottom: 20px;
+	font-size: 30px;
+	margin-top: 10px;
+}
+
+.menu-profile-edit-icon {
+	margin-top: 5px;
+	display: flex;
+	flex: 1;
+	justify-content:  flex-end;
+}
+
+
+.content-container {
+	display: flex;
+	flex-direction: column;
+	width: 490px;
+	height: 250px;
+	align-self: center;
+}
+
+.tab {
+	display: flex;
+	margin-top: 5px;
+	width: 490px;
+   height: 50px;
+   align-self: center;
+
+}
+
+.tabitem1 {
+	display: flex;
+	flex:1;
+	border: 1px solid rgb(70,93,67);
+	align-items: center;
+	justify-content: center;
+}
+.tabitem2 {
+	display: flex;
+	flex:1;
+	border: 1px solid rgb(70,93,67);
+	align-items: center;
+	justify-content: center;
+}
+.tabitem3 {
+	display: flex;
+	flex:1;
+	border: 1px solid rgb(70,93,67);
+	background-color: rgb(70,93,67);
+	align-items: center;
+	justify-content: center;
+}
+
+.tabitem4, .tabitem5 {
+	display: flex;
+	flex:1;
+	border: 1px solid black;
+	align-items: center;
+	justify-content: center;
+}
+
+.tabitem4, .tabitem2 {
+	background-color: green;
+}
+.tabitem3 {
+	background-color: white;
+}
+
+.tabitem4 a, .tabitem5 a {
+	display: flex;
+	flex:1;
+	align-items: center;
+	justify-content: center;
+}
+.material-icons {
+	border: none;
+	color: #d18814;
+	display: inline-block;
+	size: 3px;
+}
