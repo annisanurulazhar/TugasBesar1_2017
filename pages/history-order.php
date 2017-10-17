@@ -18,7 +18,6 @@
 		<title>
 			History
 		</title>
-		<link rel="stylesheet" type="text/css" href="../assets/styles/profile.css">
 		<link rel="stylesheet" type="text/css" href="../assets/styles/history.css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<script type="text/javascript" src="../assets/js/history.js"></script>
@@ -37,7 +36,8 @@
 					</div>
 					<div class="projekcontainer">
 						<div class="username">Hi, <?php echo $username; ?></div>
-						<div class="logout"><a href="../handlers/logout-handler.php">Logout</a></div>
+						<div class="logout">
+							<a href="../handlers/logout-handler.php>">Logout</a></div>
 					</div>
 				</div>
 				<div class="tab">
